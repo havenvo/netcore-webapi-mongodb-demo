@@ -11,6 +11,10 @@ namespace NetCoreApiMongodb.Controllers
     public class ValuesController : ControllerBase
     {
         // GET api/values
+        /// <summary>
+        /// Get all values
+        /// </summary>
+        /// <returns>The get.</returns>
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
