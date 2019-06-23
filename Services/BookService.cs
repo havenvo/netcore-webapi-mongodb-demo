@@ -1,20 +1,24 @@
 ﻿using System.Collections.Generic;
+using AutoMapper;
 using MongoDB.Driver;
-using NetCoreApiMongodb.Entities;
 using NetCoreApiMongodb.Models;
+using NetCoreApiMongodb.Services.Books.Dtos;
+using NetCoreApiMongodb.Entities;
 
 namespace NetCoreApiMongodb.Services
 {
     public class BookService
     {
         private readonly IMongoCollection<Book> _books;
+        private readonly IMapper _mapper;
 
-        public BookService(IBookstoreDatabaseSettings settings)
+        public BookService(IBookstoreDatabaseSettings settings, IMapper mapper)
         {
+            _mapper = mapper;
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
 
-            _books = database.GetCollection<Book>(settings.BooksCollectionName);
+            _books = database.GetCollection<Entities.Book>(settings.BooksCollectionName);
         }
 
         public List<Book> Get() =>
@@ -23,10 +27,11 @@ namespace NetCoreApiMongodb.Services
         public Book Get(string id) =>
             _books.Find<Book>(book => book.Id == id).FirstOrDefault();
 
-        public Book Create(Book book)
+        public Book Create(BookDto book)
         {
-            _books.InsertOne(book);
-            return book;
+            var bookEntity = _mapper.Map<Book>(book);
+            _books.InsertOne(bookEntity);
+            return bookEntity;
         }
 
         public void Update(string id, Book bookIn) =>

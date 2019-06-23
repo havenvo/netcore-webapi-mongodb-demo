@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreApiMongodb.Entities;
 using NetCoreApiMongodb.Services;
+using NetCoreApiMongodb.Services.Books.Dtos;
 
 namespace NetCoreApiMongodb.Controllers
 {
@@ -20,9 +21,15 @@ namespace NetCoreApiMongodb.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Book>> GetAllBooks()
+        public ActionResult<IEnumerable< Book>> Get([FromQuery] string id)
         {
-            return _bookService.Get();
+            return id == null ? _bookService.Get() : new List<Book>() { _bookService.Get(id) };
+        }
+
+        [HttpPost]
+        public ActionResult<Book> Create([FromBody] BookDto bookDto)
+        {
+            return _bookService.Create(bookDto);
         }
     }
 }
