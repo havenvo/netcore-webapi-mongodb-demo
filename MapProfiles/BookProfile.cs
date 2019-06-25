@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using NetCoreApiMongodb.Entities;
-using NetCoreApiMongodb.Services.Authors.Dtos;
 using NetCoreApiMongodb.Services.Books.Dtos;
 
 namespace NetCoreApiMongodb.MapProfiles
