@@ -18,7 +18,7 @@ namespace NetCoreApiMongodb.Services
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
 
-            _books = database.GetCollection<Entities.Book>(settings.BooksCollectionName);
+            _books = database.GetCollection<Entities.Book>("Books");
         }
 
         public List<Book> Get() =>

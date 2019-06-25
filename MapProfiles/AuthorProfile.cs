@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
 using NetCoreApiMongodb.Entities;
 using NetCoreApiMongodb.Services.Authors.Dtos;
-using NetCoreApiMongodb.Services.Books.Dtos;
 
 namespace NetCoreApiMongodb.MapProfiles
 {
-    public class BookProfile : Profile
+    public class AuthorProfile : Profile
     {
-        public BookProfile()
+        public AuthorProfile()
         {
-            CreateMap<BookDto, Book>();
+            CreateMap<AuthorDto, Author>();
+            CreateMap<Author, AuthorResponseDto>();
         }
     }
 }
